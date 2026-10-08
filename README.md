@@ -6,5 +6,9 @@
 
 
 
+Как запустить: Нажмите на иконку приложения на рабочем столе.
+
+
+
 https://github.com/Kondrat-Sys/project/wiki
 
