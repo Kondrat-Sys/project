@@ -1,0 +1,31 @@
+@startuml
+!theme plain
+actor "Пользователь" as User
+actor "Администратор" as Admin
+
+node "Мобильное приложение (Frontend)" {
+  component "UI/UX" as UI
+  component "Локальное хранилище (SQLite)" as LocalDB
+}
+
+node "Серверная часть (Backend)" {
+  component "API Gateway" as API
+  component "ML-Сервис (Анализ)" as ML
+  database "PostgreSQL (История, Пользователи)" as DB
+  component "S3-Хранилище (Файлы)" as S3
+}
+
+cloud "Внешние сервисы" {
+  component "Метаданные (EXIF)" as Meta
+}
+
+User --> UI
+Admin --> API
+UI --> LocalDB : "Кэш истории"
+UI --> API : "HTTPS / REST"
+API --> DB : "Запросы"
+API --> S3 : "Сохранение файлов"
+API --> ML : "Передача файла на анализ"
+ML --> Meta : "Извлечение EXIF"
+ML --> API : "Процент уверенности"
+@enduml
